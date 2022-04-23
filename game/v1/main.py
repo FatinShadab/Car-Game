@@ -11,7 +11,7 @@ lvl = 0
 itr = 0
 lvlChanger = 5
 left_key_pressed = 0
-right_key_pressed = 0 
+right_key_pressed = 1 
 
 game.font.init()
 font = game.font.SysFont('Comic Sans MS', 30)
@@ -23,7 +23,7 @@ playerCar_loc = playerCar.get_rect()
 playerCar_loc.center = WIDTH/2 + ROAD_WIDTH/4, HEIGHT*.8
 
 computerCar = game.image.load('resources\\otherCar.png')
-computerCar_loc = playerCar.get_rect()
+computerCar_loc = computerCar.get_rect()
 computerCar_loc.center = WIDTH/2 - ROAD_WIDTH/4, HEIGHT*.2
 computerCar_speed = 1.5
 
@@ -39,8 +39,7 @@ while active:
 
     computerCar_loc[1] += computerCar_speed
     if computerCar_loc[1] > HEIGHT:
-        computerCar_loc[1] = -200
-        computerCar_loc[0] = random.choice([int(WIDTH/3 - ROAD_WIDTH/4), int(WIDTH/3 + ROAD_WIDTH/4)])
+        computerCar_loc.center =  random.choice([int(WIDTH/2 - ROAD_WIDTH/4), int(WIDTH/2 + ROAD_WIDTH/4)]), -200
         itr += 1
         if itr == lvlChanger:
             lvl += 1
@@ -48,6 +47,7 @@ while active:
             computerCar_speed += .25
 
     if playerCar_loc[0] == computerCar_loc[0] and computerCar_loc[1] > (playerCar_loc[1] -250):
+        print("Crashed")
         break
 
     for event in game.event.get():
