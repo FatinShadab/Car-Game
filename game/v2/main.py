@@ -4,7 +4,7 @@ from pygame.locals import *
 
 
 class SimpleCarGame:
-    def __init__(self, winSize, iconPath, lvlChanger, speedValue, playerCarPath, computerCarPath):
+    def __init__(self, winSize, lvlChanger, speedValue, iconPath, playerCarPath, computerCarPath):
 
         self.active = True
 
@@ -33,7 +33,7 @@ class SimpleCarGame:
         self.computerCar_speed = speedValue
 
         pygame.font.init()
-        self.font = game.font.SysFont('Comic Sans MS', 30)
+        self.font = pygame.font.SysFont('Comic Sans MS', 30)
 
         pygame.init()
 
@@ -63,7 +63,6 @@ class SimpleCarGame:
             (self.WIDTH/2 + self.ROAD_WIDTH/2 - self.ROAD_LINE_WIDTH*3, 0, self.ROAD_LINE_WIDTH, self.HEIGHT)
         )
 
-
     def start(self):
 
         _temp = self.lvlChanger
@@ -84,7 +83,7 @@ class SimpleCarGame:
                     self.computerCar_speed += .5
 
             # checks if both car crashed or not
-            if self.playerCar_loc[0] == self.computerCar_loc and computerCar_loc[1] > (playerCar_loc[1] - 250):
+            if self.playerCar_loc.center[0] == self.computerCar_loc.center[0] and self.computerCar_loc.center[1] > (self.playerCar_loc.center[1] -250):
                 print("Crashed")
                 self.active = False
 
@@ -113,7 +112,7 @@ class SimpleCarGame:
             screen.fill((60, 220, 0))
 
             # draw's the road on the screen
-            self.__draw_background(screenObj=screen)
+            self.__draw_road(screenObj=screen)
 
             lvlText = self.font.render(f'Level : {self.lvl}', False, (0, 0, 0))
             lvlText_loc = (self.WIDTH*.85, 0)
@@ -127,4 +126,18 @@ class SimpleCarGame:
             screen.blit(self.computerCar, self.computerCar_loc)
             pygame.display.update()
 
-        pygame.quit()
+        if not self.active:
+            print('inside logic')
+            pygame.quit()
+
+
+if __name__ == "__main__":
+    game = SimpleCarGame(
+        winSize = (1000, 800),
+        iconPath = '../resources\\racing-cars-svgrepo-com.svg',
+        lvlChanger = 5,
+        speedValue = 1.5,
+        playerCarPath = '../resources\\car_topview.svg',
+        computerCarPath = '../resources\\otherCar.png'
+    )
+    game.start()

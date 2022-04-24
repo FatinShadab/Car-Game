@@ -16,13 +16,13 @@ right_key_pressed = 1
 game.font.init()
 font = game.font.SysFont('Comic Sans MS', 30)
 
-gameIcon = game.image.load('resources\\racing-cars-svgrepo-com.svg')
-playerCar = game.image.load('resources\\car_topview.svg')
+gameIcon = game.image.load('../resources\\racing-cars-svgrepo-com.svg')
+playerCar = game.image.load('../resources\\car_topview.svg')
 playerCar = game.transform.scale(playerCar, (120, 250))
 playerCar_loc = playerCar.get_rect()
 playerCar_loc.center = WIDTH/2 + ROAD_WIDTH/4, HEIGHT*.8
 
-computerCar = game.image.load('resources\\otherCar.png')
+computerCar = game.image.load('../resources\\otherCar.png')
 computerCar_loc = computerCar.get_rect()
 computerCar_loc.center = WIDTH/2 - ROAD_WIDTH/4, HEIGHT*.2
 computerCar_speed = 1.5
@@ -46,7 +46,7 @@ while active:
             lvlChanger += 5
             computerCar_speed += .25
 
-    if playerCar_loc[0] == computerCar_loc[0] and computerCar_loc[1] > (playerCar_loc[1] -250):
+    if playerCar_loc.center[0] == computerCar_loc.center[0] and computerCar_loc.center[1] > (playerCar_loc.center[1] -250):
         print("Crashed")
         break
 
